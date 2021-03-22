@@ -1,11 +1,11 @@
+#include "CinderOpenCV.h"
+
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/ImageIo.h"
 #include "cinder/params/Params.h"
 #include "cinder/ip/Fill.h"
-
-#include "CinderOpenCV.h"
 
 using namespace ci;
 using namespace ci::app;

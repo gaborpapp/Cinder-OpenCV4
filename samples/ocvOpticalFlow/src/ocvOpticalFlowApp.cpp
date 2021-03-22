@@ -1,10 +1,10 @@
+#include "CinderOpenCV.h"
+
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Capture.h"
 #include "cinder/params/Params.h"
-
-#include "CinderOpenCV.h"
 
 using namespace ci;
 using namespace ci::app;

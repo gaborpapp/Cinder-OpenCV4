@@ -19,5 +19,26 @@ ci_make_app(
 	INCLUDES ${APP_DIR}/include
 	SOURCES ${APP_SRCS}
 	CINDER_PATH ${CINDER_PATH}
-	BLOCKS ../../../../../Cinder-OpenCV3
+	BLOCKS ../../../../../Cinder-OpenCV4
 )
+
+get_target_property( OUTPUT_DIR ${APP_NAME} RUNTIME_OUTPUT_DIRECTORY )
+
+if( APPLE )
+	set_target_properties( ${APP_NAME} PROPERTIES
+		MACOSX_BUNDLE TRUE
+		MACOSX_BUNDLE_INFO_PLIST ${APP_DIR}/proj/xcode/Info.plist
+	)
+
+    add_custom_target( run
+        COMMAND open ${OUTPUT_DIR}/${APP_NAME}.app
+        DEPENDS ${OUTPUT_DIR}/${APP_NAME}.app/Contents/MacOS/${APP_NAME}
+        WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+    )
+elseif( UNIX )
+    add_custom_target( run
+        COMMAND ${OUTPUT_DIR}/${APP_NAME}
+        DEPENDS ${OUTPUT_DIR}/${APP_NAME}
+        WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+    )
+endif()
