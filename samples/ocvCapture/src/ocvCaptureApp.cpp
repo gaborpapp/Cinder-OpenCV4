@@ -13,7 +13,7 @@ class ocvCaptureApp : public App {
 	void setup();
 	void update();
 	void draw();
-	
+
 	CaptureRef			mCapture;
 	gl::TextureRef		mTexture;
 	gl::TextureRef		mTextureOrig;
@@ -33,22 +33,16 @@ void ocvCaptureApp::setup()
 void ocvCaptureApp::update()
 {
 	if( mCapture && mCapture->checkNewFrame() ) {
-		auto surf = mCapture->getSurface();
-		cv::Mat input( toOcv( *surf ) ), output;
-		mTexture = gl::Texture::create( fromOcv( output ), gl::Texture::Format().loadTopDown() );
-		/*
-		cv::Mat input( toOcv( *mCapture->getSurface() ) ), output;
+		cv::Mat input( toOcv( *mCapture->getSurface(), CV_8UC1 ) ), output;
 
-		cv::Sobel( input, output, CV_8U, 1, 0 );
-		
-//		cv::threshold( input, output, 128, 255, CV_8U );	
-//		cv::Laplacian( input, output, CV_8U );		
-//		cv::circle( output, toOcv( Vec2f(200, 200) ), 300, toOcv( Color( 0, 0.5f, 1 ) ), -1 );
+		cv::Sobel( input, output, CV_8UC1, 1, 0 );
+//		cv::threshold( input, output, 128, 255, CV_8U );
+//		cv::Laplacian( input, output, CV_8U );
+//		cv::circle( output, toOcv( vec2(200, 200) ), 300, toOcv( Color( 0, 0.5f, 1 ) ), -1 );
 //		cv::line( output, cv::Point( 1, 1 ), cv::Point( 30, 30 ), toOcv( Color( 1, 0.5f, 0 ) ) );
-		
+
 		mTexture = gl::Texture::create( fromOcv( output ), gl::Texture::Format().loadTopDown() );
-		*/
-	}	 
+	}
 }
 
 void ocvCaptureApp::draw()
@@ -57,6 +51,5 @@ void ocvCaptureApp::draw()
 	if( mTexture )
 		gl::draw( mTexture );
 }
-
 
 CINDER_APP( ocvCaptureApp, RendererGl )
